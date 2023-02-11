@@ -24,6 +24,7 @@ void Print2(Stu* ps)
 	printf("age:%d\n", (*ps).age);
 	printf("tele:%s\n", ps->tele);
 	printf("sex:%s\n", ps->sex);
+	//
 }
 
 int main()
