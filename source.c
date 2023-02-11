@@ -1,36 +1,27 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 
-typedef struct Stu
+int is_prime(int n)
 {
-	//成员变量
-	char name[20];
-	short age;
-	char tele[12];
-	char sex[5];
-}Stu;
-
-void Print1(Stu temp)
-{
-	printf("name:%s\n", temp.name);
-	printf("age:%d\n", temp.age);
-	printf("tele:%s\n", temp.tele);
-	printf("sex:%s\n", temp.sex);
+	for (int j = 2; j <= sqrt(n); j++)
+	{
+		if (n % j)
+		{
+			return 1;
+		}
+		return 0;
+	}
 }
-
-void Print2(Stu* ps)
-{
-	printf("name:%s\n", (*ps).name);
-	printf("age:%d\n", (*ps).age);
-	printf("tele:%s\n", ps->tele);
-	printf("sex:%s\n", ps->sex);
-}
-
 int main()
 {
-	Stu s = { "李四",40,"15559888144","男" };
-	Print1(s);
-	Print2(&s);
+	//打印100-200之间的素数
+	int i = 0;
+	for (i = 101; i <= 200; i += 2)
+	{
+		//判断i是否为素数
+		if (is_prime(i) == 1)
+			printf("%d ", i);
+	}
 	system("pause");
 	return 0;
 }
