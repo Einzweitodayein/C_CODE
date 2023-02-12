@@ -1,26 +1,16 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 
-int is_prime(int n)
-{
-	for (int j = 2; j <= sqrt(n); j++)
-	{
-		if (n % j)
-		{
-			return 1;
-		}
-		return 0;
-	}
-}
+
 int main()
 {
-	//打印100-200之间的素数
+	//死循环
 	int i = 0;
-	for (i = 101; i <= 200; i += 2)
+	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	for (i = 0; i <= 12; i++)
 	{
-		//判断i是否为素数
-		if (is_prime(i) == 1)
-			printf("%d ", i);
+		printf("hehe\n");
+		arr[i] = 0;
 	}
 	system("pause");
 	return 0;
