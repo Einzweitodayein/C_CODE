@@ -1,23 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 
-//一维数组传参
-void test(int arr[]) //ok
-{}
-void test(int arr[10]) //ok
-{}
-void test(int* arr) //ok
-{}
-void test2(int* arr[20]) //ok
-{}
-void test2(int** arr) //ok
-{}
+
 int main()
 {
-	int arr[10] = { 0 };
-	int* arr2[20] = { 0 };
-	test(arr);
-	test2(arr2);
+	int a = 10;
+	int* pa = &a;  //pa就是一级指针变量 int*就是一级指针类型
+	int** ppa = &pa; //ppa就是二级指针
+	int*** pppa = &ppa; //pppa就是三级指针
 	system("pause");
 	return 0;
 }
