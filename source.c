@@ -1,104 +1,24 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 
-struct Stu
-{
-	char name[20];
-	int age;
-};
-
-void Swap(char* buf1, char* buf2, int width)
-{
-	int i = 0;
-	for (i = 0; i < width; i++)
-	{
-		char temp = *buf1;
-		*buf1 = *buf2;
-		*buf2 = temp;
-		buf1++;
-		buf2++;
-	}
-}
-//实现bubble_sort函数的程序员，他不知道未来排序的数据类型
-//也不知道待比较的两个元素的类型
-void buble_sort(void* base, int sz, int width, int (*cmp)(void* e1, void* e2))
-{
-	int i = 0;
-	//趟数
-	for (i = 0; i < sz-1; i++)
-	{
-		//每一趟比较的对数
-		int j = 0;
-		for (j = 0; j < sz - 1 - i; j++)
-		{
-			//两个元素的比较
-			if (cmp((char*)base+j*width,(char*)base+(j+1)*width) > 0) //传元素地址
-			{
-				//交换
-				Swap((char*)base+j*width,(char*)base+(j+1)*width,width);
-			}
-		}
-	}
-}
-
-
-int cmp_int(void* e1, void* e2)
-{
-	return *(int*)e1 - *(int*)e2;
-}
-
-void test1() //冒泡排整型
-{
-	int arr[10] = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-	int sz = sizeof(arr) / sizeof(arr[0]);
-	buble_sort(arr, sz, sizeof(arr[0]), cmp_int);
-
-	int i = 0;
-	for (i = 0; i < sz; i++)
-	{
-		printf("%d ", arr[i]);
-	}
-}
-
-int cmp_stu_name(void* e1, void* e2)
-{
-	return strcmp(((struct Stu*)e1)->name, ((struct Stu*)e2)->name);
-}
-
-int cmp_stu_age(void* e1, void* e2)
-{
-	return ((struct Stu*)e1)->age - ((struct Stu*)e2)->age;
-}
-void test2() //冒泡排结构体中的名字
-{
-	struct Stu s[3] = { {"张三",30},{"李四",40},{"王五",10} };
-	int sz = sizeof(s) / sizeof(s[0]);
-	buble_sort(s, sz, sizeof(s[0]), cmp_stu_name);
-	int i = 0;
-	for (i = 0; i < sz; i++)
-	{
-		printf("%s ", (s+i)->name);
-	}
-}
-void test3() //冒牌排结构体中的年龄
-{
-	struct Stu s[3] = { {"张三",30},{"李四",40},{"王五",10} };
-	int sz = sizeof(s) / sizeof(s[0]);
-	buble_sort(s, sz, sizeof(s[0]), cmp_stu_age);
-	int i = 0;
-	for (i = 0; i < sz; i++)
-	{
-		printf("%d ", (s + i)->age);
-	}
-}
 
 int main()
 {
-	test1();
-	printf("\n");
-	test2();
-	printf("\n");
-	test3();
+	//数组名是首元素的地址
+	//1.sizeof(数组名)——数组名表示整个数组
+	//2.&数组名——数组名表示整个数组
+
+	int a[] = { 1,2,3,4 };
+	printf("%d\n", sizeof(a)); //sizeof(数组名)—计算的是数组总大小 16
+	printf("%d\n", sizeof(a + 0)); //数组名这里表示首元素地址，a+0还是首元素地址 地址的大小就是4/8字节
+	printf("%d\n", sizeof(*a)); // 数组名表示首元素地址，*a就是首元素 sizeof(*a)就是4
+	printf("%d\n", sizeof(a + 1)); //数组名这里表示首元素地址，a+1是第二个元素地址 地址的大小就是4/8字节
+	printf("%d\n", sizeof(a[1])); //第二个元素的地址 4/8
+	printf("%d\n", sizeof(&a)); //&a取出的是数组的地址，但是数组的地址那也是地址，地址的大小就是4/8个字节
+	printf("%d\n", sizeof(*&a)); //16  &a数组的地址,数组的地址解引用访问的是数组，sizeof计算的就是数组的大小，单位是字节
+	printf("%d\n", sizeof(&a + 1)); // &a是数组的地址，&a+1虽然跳过整个数组，但还是地址，所以是4/8
+	printf("%d\n", sizeof(&a[0])); // 4/8  &a[0]是第一个元素的地址
+	printf("%d\n", sizeof(&a[0] + 1)); // 4/8 &a[0]+1是第二个元素的地址
 	system("pause");
 	return 0;
 }
