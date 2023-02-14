@@ -1,6 +1,15 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 
+void menu()
+{
+	printf("*************************\n");
+	printf("****  1.add   2.sub  ****\n");
+	printf("****  3.mul   4.div  ****\n");
+	printf("****       0.exit    ****\n");
+	printf("*************************\n");
+}
+
 int Add(int x, int y)
 {
 	return x + y;
@@ -19,16 +28,34 @@ int Div(int x, int y)
 }
 int main()
 {
-	//需要一个数组，这个数组可以存放4个函数的地址——函数指针的数组
-	int(*pa)(int, int) = Add; // Sub/Mul/Div
-	int(*parr[4])(int, int) = { Add,Sub,Mul,Div }; //函数指针的数组
-	//parr先和[]结合，说明parr是数组，数组的内容是什么呢？是int(*)(int,int)类型的函数指针
-
-	int i = 0;
-	for (i = 0; i < 4; i++)
+	int input = 0;
+	int x = 0;
+	int y = 0;
+	
+	//pfArr是一个函数指针数组——转移表
+	int(*pfArr[5])(int, int) = { 0,Add,Sub,Mul,Div };
+	do
 	{
-		printf("%d\n", (parr[i])(2,3)); //注意在parr前面加*会出错
-	}
+		menu();
+		printf("请选择:>");
+		scanf("%d", &input);
+		if (input >= 1 && input <= 4)
+		{
+			printf("请输入两个操作数:>");
+			scanf("%d%d", &x, &y);
+			int ret = pfArr[input](x, y);
+			printf("%d\n", ret);
+		}
+		else if (input == 0)
+		{
+			printf("退出\n");
+		}
+		else
+		{
+			printf("选择错误\n");
+		}
+		
+	} while (input);
 	system("pause");
 	return 0;
 }
