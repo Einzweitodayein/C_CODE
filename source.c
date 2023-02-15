@@ -4,10 +4,12 @@
 
 int main()
 {
-	int a[3][2] = { (0,1),(2,3),(4,5) };
-	int* p;
-	p = a[0];
-	printf("%d\n", p[0]);//1
+	//这是哪个公司出的sb题？
+	int a[5][5];
+	int(*p)[4];
+	p = a;
+	printf("%p,%d\n", &p[4][2] - &a[4][2], &p[4][2] - &a[4][2]);  //FFFFFFFC  -4
 	system("pause");
 	return 0;
 }
+//p[4][2]==*(*(p+4)+2)
