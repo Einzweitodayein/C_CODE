@@ -4,11 +4,10 @@
 
 int main()
 {
-	//小端存储 整型地址互相转化。。。
-	int a[4] = { 1,2,3,4 };
-	int* ptr1 = (int*)(&a + 1);
-	int* ptr2 = (int*)((int)a + 1);
-	printf("%x,%x\n", ptr1[-1], *ptr2);
+	int a[3][2] = { (0,1),(2,3),(4,5) };
+	int* p;
+	p = a[0];
+	printf("%d\n", p[0]);
 	system("pause");
 	return 0;
 }
