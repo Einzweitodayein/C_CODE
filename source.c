@@ -4,12 +4,11 @@
 
 int main()
 {
-	//这是哪个公司出的sb题？
-	int a[5][5];
-	int(*p)[4];
-	p = a;
-	printf("%p,%d\n", &p[4][2] - &a[4][2], &p[4][2] - &a[4][2]);  //FFFFFFFC  -4
+	int aa[2][5] = { 1,2,3,4,5,6,7,8,9,10 };
+	int* ptr1 = (int*)(&aa + 1);
+	int* ptr2 = (int*)(*(aa + 1)); //*(aa+1) 等价于aa[1]   第二行首元素地址
+
+	printf("%d,%d", *(ptr1 - 1), *(ptr2 - 1));  //10 5
 	system("pause");
 	return 0;
 }
-//p[4][2]==*(*(p+4)+2)
