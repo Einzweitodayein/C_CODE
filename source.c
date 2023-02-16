@@ -3,49 +3,45 @@
 #include<assert.h>
 #include<string.h>
 
-
-//杨氏矩阵
-//有一个数字矩阵，矩阵的每行从左到右是递增的，矩阵从上到下是递增的
-//请编写程序在这样的矩阵中查找某个数字是否存在
-//要求时间复杂度小于O(N);
-
-int FindNum(int arr[3][3], int k, int row, int col)
+char* my_strstr(const char* p1, const char* p2)
 {
-	int x = 0;
-	int y = col - 1;
-	while (x < row && y >= 0 )
+	assert(p1 && p2);
+	char* s1 = p1;
+	char* s2 = p2;
+	char* cur = p1;
+	if (*p2 == '\0') //当要查的字符串为""时
 	{
-		if (arr[x][y] > k)
-		{
-			y--;
-
-		}
-		else if (arr[x][y] < k)
-		{
-			x++;
-		}
-		else
-		{
-			return 1;
-		}
+		return p1;
 	}
-	//找不到
-	return 0;
+	while (*cur)
+	{
+		s1 = cur;
+		s2 = p2;
+		while ((*s1 != '\0') && (*s2 != '\0') && (*s1 == *s2))
+		{
+			s1++;
+			s2++;
+		}
+		if (*s2 == '\0')
+		{
+			return cur; //找到子串
+		}
+		cur++;
+	}
+	return NULL;  //找不到子串
 }
 int main()
 {
-	int arr[3][3] = { {1,2,3},
-		              {4,5,6},
-		              {7,8,9} };
-	int k = 9;
-	int ret = FindNum(arr, k,3,3);
-	if (ret == 1)
+	char* p1 = "abcdef";
+	char* p2 = "bcdo";
+	char* ret = my_strstr(p1, p2);
+	if (ret == NULL)
 	{
-		printf("存在\n");
+		printf("子串不存在\n");
 	}
 	else
 	{
-		printf("不存在\n");
+		printf("%s\n", ret);
 	}
 	system("pause");
 	return 0;
