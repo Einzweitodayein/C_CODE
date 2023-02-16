@@ -2,56 +2,46 @@
 #include<stdio.h>
 #include<assert.h>
 
-
-void Print(int k)
+//调整数组使奇数位于偶数的前面
+void move(int* arr, int len)
 {
-	int i = 0;
-	for (i = 0; i < k; i++)
+	int* left = arr;
+	int* right = arr + len-1;
+
+
+	while (left<right)
 	{
-		int j = 0;
-		for (j = 0; j < k - 1-i; j++)
+		//从左边找偶数
+		while ( (left<right) && (*left % 2 == 1)) //防止全是奇数的情况下--会越界访问
 		{
-			printf(" ");
+			left++;
+		}
+		//从右边找奇数
+		while ( (left < right) && (*right % 2 == 0))  //防止全是偶数的情况下++会越界访问
+		{
+			right--;
+		}
+		if (left < right)
+		{
+			int temp = *left;
+			*left = *right;
+			*right = temp;
+			left++;
+			right--;
 		}
 		
-		for (j = 0; j < 2*i+1; j++)
-		{
-			printf("*");
-		}
-		printf("\n");
-
-	}
-
-	for (i = 0; i < k - 1; i++)
-	{
-		int j = 0;
-		for (j = 0; j <= i; j++)
-		{
-			printf(" ");
-		}
-		for (j = 0; j <2*(k-1-i)-1 ; j++)
-		{
-			printf("*");
-		}
-		printf("\n");
 	}
 }
 int main()
 {
-	int line = 0;
-	scanf("%d", &line);
-	Print(line);
+	int arr[] = { 1,2,3,4,5,5,6,7,8,9 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	move(arr, len);
+	int i = 0;
+	for (i = 0; i < len; i++)
+	{
+		printf("%d ", arr[i]);
+	}
 	system("pause");
 	return 0;
 }
-//     *//5
-//    ***//4
-//   *****
-//  *******
-// *********
-//***********
-// *********  //1
-//  *******   //2
-//   *****   //3
-//    ***
-//     *
