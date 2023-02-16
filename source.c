@@ -1,47 +1,37 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<assert.h>
+#include<string.h>
 
-//调整数组使奇数位于偶数的前面
-void move(int* arr, int len)
+//逆序字符串函数
+void reverse(char* left, char* right)
 {
-	int* left = arr;
-	int* right = arr + len-1;
-
-
-	while (left<right)
+	assert(left);
+	assert(right);
+	while (left < right)
 	{
-		//从左边找偶数
-		while ( (left<right) && (*left % 2 == 1)) //防止全是奇数的情况下--会越界访问
-		{
-			left++;
-		}
-		//从右边找奇数
-		while ( (left < right) && (*right % 2 == 0))  //防止全是偶数的情况下++会越界访问
-		{
-			right--;
-		}
-		if (left < right)
-		{
-			int temp = *left;
-			*left = *right;
-			*right = temp;
-			left++;
-			right--;
-		}
-		
+		int temp = *left;
+		*left = *right;
+		*right = temp;
+		left++;
+		right--;
 	}
 }
+void left_move(char* arr,int k)
+{
+	assert(arr);
+	int len = strlen(arr);
+	assert(k <= len);
+	reverse(arr,arr+k-1); //逆序左边
+	reverse(arr + k, arr + len - 1); //逆序右边
+	reverse(arr, arr + len - 1); //逆序整体
+}
+
 int main()
 {
-	int arr[] = { 1,2,3,4,5,5,6,7,8,9 };
-	int len = sizeof(arr) / sizeof(arr[0]);
-	move(arr, len);
-	int i = 0;
-	for (i = 0; i < len; i++)
-	{
-		printf("%d ", arr[i]);
-	}
+	char arr[] = "abcdef";
+	left_move(arr, 4);
+	printf("%s\n", arr);
 	system("pause");
 	return 0;
 }
